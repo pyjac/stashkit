@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('BucketFS:server');
 var http = require('http');
+var figlet = require('figlet');
 
 /**
  * Get port from environment and store in Express.
@@ -87,4 +88,16 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log('==============================================================================');
+  figlet('BucketFS', function(err, data){
+    if(err){
+      return console.log('Could not create bucketFS ASCII Art');
+    }
+    console.log(data);
+  });
+  console.log('BucketFS Server started on ' + bind);
+  console.log('==============================================================================');
+  console.log('Point your browser to http://localhost:' + port + "/admin to use web interface");
+  console.log('==============================================================================');
+
 }
