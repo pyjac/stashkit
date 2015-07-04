@@ -88,16 +88,18 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-  console.log('==============================================================================');
   figlet('BucketFS', function(err, data){
     if(err){
       return console.log('Could not create bucketFS ASCII Art');
     }
+    console.log('==============================================================================');
     console.log(data);
+    console.log('==============================================================================');
+    console.log('Storage Server started on ' + bind);
+    console.log('==============================================================================');
+    console.log('Point your browser to http://localhost:' + port + "/admin to use web interface");
+    console.log('==============================================================================');
   });
-  console.log('BucketFS Server started on ' + bind);
-  console.log('==============================================================================');
-  console.log('Point your browser to http://localhost:' + port + "/admin to use web interface");
-  console.log('==============================================================================');
+
 
 }
