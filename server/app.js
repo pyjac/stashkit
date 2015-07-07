@@ -8,9 +8,7 @@ var Passport = require('passport');
 
 var database = require('../../StashKit/lib/database');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var oauth = require('./routes/oauth');
+var router = require('./routes/index');
 
 var ACL = require('../lib/acl');
 
@@ -28,10 +26,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(Passport.initialize());
-
-app.use('/', routes);
-app.use('/users', users);
-app.use('/oauth', oauth);
+app.use(router(app));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
