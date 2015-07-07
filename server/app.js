@@ -6,13 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var Passport = require('passport');
 
-var database = require('../BucketFS/lib/database');
+var database = require('../../StashKit/lib/database');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var oauth = require('./routes/oauth');
 
-var ACL = require('./lib/acl');
+var ACL = require('../lib/acl');
 
 var app = express();
 

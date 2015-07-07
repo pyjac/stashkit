@@ -5,8 +5,8 @@
 var express = require('express');
 var router = express.Router();
 var ClientModel = require('../models/Client');
-var Oauth2Server = require('../lib/oauthServer');
-var helpers = require('../lib/helpers');
+var Oauth2Server = require('../../lib/oauthServer');
+var helpers = require('../../lib/helpers');
 var _ = require('lodash');
 
 function createClient(req, res, next){

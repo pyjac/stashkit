@@ -15,8 +15,7 @@ function getUser(req, res, next){
 }
 
 
-router
-    .route('/:userId')
-    .get(getUser);
+router.route('/:userId').get(getUser);
+router.route('/:userId').get(getUser);
 
 module.exports = router;
