@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var Passport = require('passport');
 var nunjucks = require('nunjucks');
-var consolidate = require('consolidate');
+var cons = require('consolidate');
 var database = require('../../StashKit/lib/database');
 
 var router = require('./routes/index');
@@ -16,11 +16,11 @@ var ACL = require('../lib/acl');
 var app = express();
 
 // view engine setup
-app.engine('html', consolidate.nunjucks);
-app.set('views', path.join(__dirname, 'server/views'));
+app.engine('html', cons.nunjucks);
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 
-nunjucks.configure('server/views',{
+nunjucks.configure('views',{
     autoescape:true,
     express:app,
     tags:{
