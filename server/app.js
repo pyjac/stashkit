@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var Passport = require('passport');
 var nunjucks = require('nunjucks');
 var consolidate = require('consolidate');
-var database = require('../../StashKit/lib/database');
+var database = require('../lib/database.js');
 
 var router = require('./routes/index');
 
@@ -17,10 +17,10 @@ var app = express();
 
 // view engine setup
 app.engine('html', consolidate.nunjucks);
-app.set('views', path.join(__dirname, 'server/views'));
+app.set('views', path.join(__dirname, '../server/views'));
 app.set('view engine', 'html');
 
-nunjucks.configure('server/views',{
+nunjucks.configure('../server/views',{
     autoescape:true,
     express:app,
     tags:{
