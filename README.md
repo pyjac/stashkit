@@ -1,4 +1,4 @@
-# BucketFS
+# Stashkit
 Exposes MongoDB GridFS via a RESTful Interface backed by ImageMagick and FFMPEG
 
 ##Goal
