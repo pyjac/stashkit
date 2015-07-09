@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../server/app');
+var app = require('../core/server/app');
 var debug = require('debug')('BucketFS:server');
 var http = require('http');
 var figlet = require('figlet');
