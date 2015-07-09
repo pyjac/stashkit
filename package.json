@@ -38,11 +38,13 @@
     "serve-favicon": "~2.2.1"
   },
   "devDependencies": {
+    "browserify": "^10.2.4",
     "chai": "^3.0.0",
     "figlet": "^1.1.1",
     "gulp": "^3.9.0",
     "gulp-browserify": "^0.5.1",
     "mocha": "^2.2.5",
+    "npm": "^2.12.1",
     "supertest": "^1.0.1"
   }
 }
