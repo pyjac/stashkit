@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "mocha"
   },
   "bin": {
     "stashkit": "./bin/cli.js"
@@ -37,6 +38,7 @@
     "serve-favicon": "~2.2.1"
   },
   "devDependencies": {
+    "chai": "^3.0.0",
     "figlet": "^1.1.1",
     "gulp": "^3.9.0",
     "gulp-browserify": "^0.5.1",
