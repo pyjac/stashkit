@@ -5,9 +5,7 @@ var os = require('os');
 
 //index route
 function consoleIndex(req, res, next) {
-
-  //res.json({ title: 'Express' }); <------- this works
-  res.render('index', { title: 'Express' }); // <---------- this doesnt
+  res.render('index', { title: 'Express' });
 };
 
 function getSysInfo(req, res, next) {

@@ -16,11 +16,12 @@ var ACL = require('../lib/acl');
 var app = express();
 
 // view engine setup
+var templatePath = path.join(__dirname, '../server/views');
 app.engine('html', consolidate.nunjucks);
-app.set('views', path.join(__dirname, '../server/views'));
+app.set('views', templatePath);
 app.set('view engine', 'html');
 
-nunjucks.configure('../server/views',{
+nunjucks.configure(templatePath,{
     autoescape:true,
     express:app,
     tags:{
