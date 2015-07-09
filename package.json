@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha"
+    "test": "gulp run:mocha"
   },
   "bin": {
     "stashkit": "./bin/cli.js"
@@ -43,6 +43,7 @@
     "figlet": "^1.1.1",
     "gulp": "^3.9.0",
     "gulp-browserify": "^0.5.1",
+    "gulp-mocha": "^2.1.2",
     "mocha": "^2.2.5",
     "npm": "^2.12.1",
     "supertest": "^1.0.1"
