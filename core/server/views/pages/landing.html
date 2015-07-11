@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="start">
+    <div class="row">
+        <div id="start-div" class="col abs-center">
+            <h4 class="card-title">Stashkit</h4>
+            <div class="card darken-1">
+                <div class="card-content black-text">
+                    <h6>By using  GridFS we get disk locality because of the way MongoDB allocates data files i.e. if we
+                        store a big binary (e.g. a video), chances are good it all fits into one pre-allocated data file
+                        and is therefore stored in GridFS as one continuous big chunk (data file) on disk. </h6>
+                </div>
+                <div class="card-action">
+                    <a href="#">get Started!!!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
