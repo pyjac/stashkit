@@ -5,8 +5,12 @@ var os = require('os');
 
 //index route
 function consoleIndex(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('pages/landing', { title: 'Express' });
 };
+function loginIndex(req, res, next) {
+  res.render('pages/login');
+};
+
 
 function getSysInfo(req, res, next) {
   var info = {};
@@ -23,6 +27,8 @@ function getSysInfo(req, res, next) {
 
 //routes
 router.route('/').get(consoleIndex);
+router.route('/start').get(consoleIndex);
+router.route('/login').get(loginIndex);
 router.route('/user/:id').get();
 router.route('/bucket/:id').get();
 router.route('/system/').get(getSysInfo);

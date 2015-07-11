@@ -2,10 +2,18 @@
 <html>
 <head lang="en">
   <meta charset="UTF-8">
-  <title>Stashkit</title>
+  <title>StashKit</title>
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <!-- Vendor Styles-->
+  <link href="/css/reset.css" type="text/css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="/bower_components/normalize.css/normalize.css" type="text/css" rel="stylesheet"/>
   <link href="/bower_components/materialize/dist/css/materialize.min.css" type="text/css" rel="stylesheet"/>
   <link href="/bower_components/angular-material/angular-material.min.css" type="text/css" rel="stylesheet">
+  <link href="/css/app.css" type="text/css" rel="stylesheet">
   <!--Vendor Scripts-->
   <script src="/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="/bower_components/angular/angular.min.js"></script>
@@ -14,18 +22,14 @@
 
 </head>
 <body>
+  {% block header %}
+  {% endblock %}
 
-{% block header %}
-  <h5>Damn yo!</h5>
-{% endblock %}
+  {% block content %}
+  {% endblock %}
 
-{% block content %}
-  <h5>Damn yo!</h5>
-{% endblock %}
-
-{% block footer %}
-  <h5>Damn yo!</h5>
-{% endblock %}
+  {% block footer %}
+  {% endblock %}
 
 </body>
 </html>
