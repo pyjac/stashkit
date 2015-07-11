@@ -8,10 +8,11 @@ var Passport = require('passport');
 var nunjucks = require('nunjucks');
 var consolidate = require('consolidate');
 var database = require('../lib/database.js');
+var stashkit = require('../lib/middleware/stashkit');
 
 var router = require('./routes/index');
 
-var ACL = require('../lib/acl');
+var ACL = require('../lib/middleware/acl');
 
 var app = express();
 
@@ -42,6 +43,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../content/public')));
 app.use(Passport.initialize());
+app.use(stashkit.init({
+    client_id:'client_id001',
+    client_secret:'client_secret001'
+}));
 app.use(router(app));
 
 // catch 404 and forward to error handler
