@@ -41,9 +41,19 @@ function uploadForm(req, res, next){
   res.render('pages/demo');
 }
 
+
+function checkForFirstUser(req, res, next){
+  console.log('checked for first use');
+  next()
+}
+
+function setupIndex(req, res, next){
+  res.render('pages/setup');
+}
+
 //routes
-router.route('/').get(consoleIndex);
-router.route('/start').get(consoleIndex);
+router.route('/').get(checkForFirstUser, consoleIndex);
+router.route('/start').get(setupIndex);
 router.route('/uploaddemo').get(uploadForm);
 router.route('/stash').post(skUploader);
 router.route('/login').get(loginIndex);

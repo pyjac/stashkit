@@ -1,1 +1,28 @@
 {% extends "layout.html" %}
+{% block content %}
+<div class="row">
+    <div id="center-box-content" class="row s12 abs-center" style="width: 413px;height: 469px;">
+        <div class="col" style="  width: 414px;">
+            <div class="card">
+                <h2 class="card-title black-text">Get Started</h2>
+                <div class="card-content"  style="padding: 35px padding: 14px">
+                    <div class="input-field">
+                        <input id="dbname" placeholder="New Database Name" type="text" class="validate">
+                        <label for="dbname">Database Name</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="dbUsername" placeholder="New Username" type="text" class="validate">
+                        <label for="dbUsername">New Username</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="dbPassword" placeholder="New Password" type="password" class="validate">
+                        <label for="dbPassword">New Password</label>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Login</button>
+                    <p id="powered-by">Powered by RackTen Digital</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
