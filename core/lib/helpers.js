@@ -3,13 +3,17 @@
  */
 
 var crypto = require('crypto');
-
+var mongoClient = require('mongodb').MongoClient;
 function generarteClientCredentials(secret_key){
     var HmacSHA = crypto.createHmac('sha1', secret_key).update()
 }
 
+function getDBAdmin(){
+
+}
 
 
 module.exports = {
-    generateClientCredentials:generarteClientCredentials
+    generateClientCredentials:generarteClientCredentials,
+    getDBadmin:getDBAdmin
 };
