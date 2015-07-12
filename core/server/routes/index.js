@@ -8,9 +8,16 @@ var skUploader = require('../../lib/middleware/stashkit').Uploader;
 function consoleIndex(req, res, next) {
   res.render('pages/landing', { title: 'Express' });
 };
+
+
 function loginIndex(req, res, next) {
   res.render('pages/login');
 };
+
+function dashboardIndex(req, res, next) {
+  res.render('pages/dashboard');
+};
+
 
 
 function getSysInfo(req, res, next) {
@@ -43,6 +50,7 @@ router.route('/login').get(loginIndex);
 router.route('/user/:id').get();
 router.route('/bucket/:id').get();
 router.route('/system/').get(getSysInfo);
+router.route('/dashboard/').get(dashboardIndex);
 
 
 

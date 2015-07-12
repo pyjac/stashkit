@@ -5,8 +5,9 @@ html, body{
 }
 
 #login-content{
-    height: 200px;
-    background-color: #003366;
+    height: 215px;
+    width: 450px;
+    text-align: center;
 }
 
 .abs-center{

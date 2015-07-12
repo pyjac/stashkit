@@ -3,10 +3,13 @@
 
 <div class="row">
     <form method="post" action="/stash" enctype="multipart/form-data">
-        <label>Select a File
-            <input type="file" name="file"/>
-        </label>
-        <button>Upload</button>
+        <div class="file-field input-field">
+            <input class="file-path validate" type="text"/>
+            <div class="btn">
+                <span>File</span>
+                <input type="file" />
+            </div>
+        </div>
     </form>
 </div>
 {% endblock %}

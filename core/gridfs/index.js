@@ -1,10 +1,7 @@
 /**
  * Created by larry Eliemenye
  */
-var util = require('util');
-var Writable = require("stream").Writable;
+var MongoClient = require('mongodb').MongoClient,
+    GridStore = require('mongodb').GridStore;
 
-function Stash(){
-    Writable.call(this);
-}
-util.inherits(Stash, Writable);
+module.exports = GridStore;
