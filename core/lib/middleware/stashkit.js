@@ -3,12 +3,14 @@ var multer = require('multer');
 var Busboy = require('busboy');
 var Stream = require('stream').Duplex;
 var util = require('util');
-var GridStore = require('../../gridfs');
+var GridStore = require('../../lib/database/GridInterface');
+
 /**
  *
  * This is Stream Wrapper Around GridFS. Think of it a stream interface to the GridFS Server
  *
  * */
+
 function SKStream() {
     Stream.call(this)
 }
@@ -25,6 +27,7 @@ SKStream.prototype._read = function(data){
  * Write data to gridfs
  *
  * */
+
 SKStream.prototype._write = function(data){
     console.log(data);
 };
@@ -43,6 +46,7 @@ __sk.on('writable', function(){
  * 1. check if a call to init returns a middle ware with the standard function signatures req, res, next
  *
  * */
+
 exports.init = function (options) {
     return function (req, res, next) {
         next()
@@ -55,7 +59,6 @@ exports.init = function (options) {
  * uploaded data are piped directly to gridFS
  *
  * */
-
 
 exports.Uploader = function(option){
     var metadata = option.metadata;

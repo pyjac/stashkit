@@ -1,3 +1,4 @@
+
 /**
  * Created by tthlex on 26/06/15.
  */
@@ -5,14 +6,27 @@
 var mongoose = require('mongoose');
 var config = require('../server/conf');
 var connectionString = "mongodb://" + config.database['local'].host + ":" + config.database['local'].port + "/" + config.database['local'].name;
-var db;
+var Server = require('mongodb').Server;
+var DB = require('mongodb').Db;
+var GridStore = require('mongodb').GridStore;
+var ObjectId = require('mongodb').ObjectId;
+
 
 mongoose.connect(connectionString);
-db = mongoose.connection;
+dbcon = mongoose.connection;
 
-db.on('error', function (error) {
+dbcon.on('error', function (error) {
     console.log('Error connecting Mongo DB: ' + error.message);
 });
-
 mongoose.set('debug', true);
-module.exports = mongoose;
+exports.database = mongoose;
+
+
+/**
+ *
+ * for getting admin interface
+ *
+ * */
+
+var db = new DB(config.database['local'].name, new Server(config.database['local'].host, config.database['local'].port));
+

@@ -3,6 +3,7 @@ var router = express.Router();
 var _ = require('lodash');
 var os = require('os');
 var skUploader = require('../../lib/middleware/stashkit').Uploader;
+var Admin = require('../../lib/database/Admin');
 
 //index route
 function consoleIndex(req, res, next) {
@@ -43,17 +44,33 @@ function uploadForm(req, res, next){
 
 
 function checkForFirstUser(req, res, next){
-  console.log('checked for first use');
-  next()
+  getDBUser(function(err, Users){
+    console.log(err, Users);
+    next()
+  });
 }
 
 function setupIndex(req, res, next){
   res.render('pages/setup');
 }
 
+function createSetup(req, res, next){
+
+}
+
+function getDatabases(req, res, next){
+  Admin.getDatabases(function(databases){
+    res.json(databases);
+  });
+
+}
+
 //routes
 router.route('/').get(checkForFirstUser, consoleIndex);
-router.route('/start').get(setupIndex);
+router.route('/start')
+    .get(setupIndex)
+    .post(createSetup);
+router.route('/admin/database').get(getDatabases);
 router.route('/uploaddemo').get(uploadForm);
 router.route('/stash').post(skUploader);
 router.route('/login').get(loginIndex);
