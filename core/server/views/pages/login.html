@@ -1,12 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
-
+<script>
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>
 <div class="row">
     <div id="center-box-content" class="row s12 abs-center">
         <div class="col" style="  width: 414px;">
             <div class="card">
                 <h3 class="card-title black-text">MongoDB Credentials</h3>
-                <div class="card-content"  style="padding: 35px padding: 14px;background-color: aliceblue;">
+                <div class="card-content"  style="padding: 35px padding: 14px;background-color: aliceblue; height: 600px;
+">
+                    <div class="input-field">
+                        <select>
+                            <option value="" disabled selected>Select a Database</option>
+                            {% for database in databases %}
+                                <option value="{{loop.index}}">{{database.name}}</option>
+                            {% endfor %}
+                        </select>
+                        <label>Pick a Database</label>
+                    </div>
                     <div class="input-field">
                         <input id="first_name" placeholder="Enter your admin username" type="text" class="validate">
                         <label for="first_name">A MongoDB Username</label>
