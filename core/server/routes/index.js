@@ -12,7 +12,10 @@ function consoleIndex(req, res, next) {
 
 
 function loginIndex(req, res, next) {
-  res.render('pages/login');
+  Admin.getDatabases(function(databases){
+    res.render('pages/login', databases);
+  });
+
 };
 
 function dashboardIndex(req, res, next) {
