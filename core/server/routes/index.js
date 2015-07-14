@@ -12,8 +12,8 @@ function consoleIndex(req, res, next) {
 
 
 function loginIndex(req, res, next) {
-  Admin.getDatabases(function(databases){
-    res.render('pages/login', databases);
+  Admin.getDatabases(function(err, databases){
+    res.render('pages/login', {data:databases});
   });
 
 };
@@ -62,16 +62,27 @@ function createSetup(req, res, next){
 }
 
 function getDatabases(req, res, next){
-  Admin.getDatabases(function(databases){
-    res.json(databases);
+  Admin.getDatabases(function(err, databases){
+    res.json({data:databases});
   });
 }
 
 function loginPost(req, res, next){
   var credentials = req.body;
-  Admin.authenticate(credentials, function(err, result){
-    console.log(err, result);
-    res.render('pages/login',{err:err});
+  Admin.authenticate(credentials, function(authErr, result){
+    if(authErr){
+      return Admin.getDatabases(function(err, databases){
+        res.render('pages/login',{
+          error:authErr,
+          data:databases
+        });
+      });
+    }
+
+    if(result){
+      return res.render('pages/dashboard',{result:result});
+    }
+
   })
 }
 

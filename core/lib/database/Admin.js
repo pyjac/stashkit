@@ -44,7 +44,7 @@ exports.getDatabases = function (callback){
             if(err){
                 return callback(err, null);
             }
-            return callback(databases);
+            return callback(null, databases);
         });
     };
     db.open(onDBOpen);
