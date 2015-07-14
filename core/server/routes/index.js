@@ -12,8 +12,8 @@ function consoleIndex(req, res, next) {
 
 
 function loginIndex(req, res, next) {
-  Admin.getDatabases(function(databases){
-    res.render('pages/login', databases);
+  Admin.getDatabases(function(err, databases){
+    res.render('pages/login', {data:databases});
   });
 
 };
@@ -62,21 +62,37 @@ function createSetup(req, res, next){
 }
 
 function getDatabases(req, res, next){
-  Admin.getDatabases(function(databases){
-    res.json(databases);
+  Admin.getDatabases(function(err, databases){
+    res.json({data:databases});
   });
+}
 
+function loginPost(req, res, next){
+  var credentials = req.body;
+  Admin.authenticate(credentials, function(authErr, result){
+    if(authErr){
+      return Admin.getDatabases(function(err, databases){
+        res.render('pages/login',{
+          error:authErr,
+          data:databases
+        });
+      });
+    }
+
+    if(result){
+      return res.render('pages/dashboard',{result:result});
+    }
+
+  })
 }
 
 //routes
 router.route('/').get(checkForFirstUser, consoleIndex);
-router.route('/start')
-    .get(setupIndex)
-    .post(createSetup);
+router.route('/start').get(setupIndex).post(createSetup);
 router.route('/admin/database').get(getDatabases);
 router.route('/uploaddemo').get(uploadForm);
 router.route('/stash').post(skUploader);
-router.route('/login').get(loginIndex);
+router.route('/login').get(loginIndex).post(loginPost);
 router.route('/user/:id').get();
 router.route('/bucket/:id').get();
 router.route('/system/').get(getSysInfo);
