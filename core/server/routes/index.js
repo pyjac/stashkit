@@ -4,6 +4,7 @@ var _ = require('lodash');
 var os = require('os');
 var skUploader = require('../../lib/middleware/stashkit').Uploader;
 var Admin = require('../../lib/database/Admin');
+var GridInterface = require('../../lib/database/GridInterface');
 
 //index route
 function consoleIndex(req, res, next) {
@@ -67,23 +68,55 @@ function getDatabases(req, res, next){
   });
 }
 
+
+/**
+ *
+ * 1. Get all credentials from client
+ * 2. Try to login with Auth,
+ * 3. if it fail, try to open the database with the name specified, if that fails return error connecting to database
+ *
+ *
+ * */
+
 function loginPost(req, res, next){
+  //request data from client
   var credentials = req.body;
-  Admin.authenticate(credentials, function(authErr, result){
-    if(authErr){
-      return Admin.getDatabases(function(err, databases){
-        res.render('pages/login',{
-          error:authErr,
-          data:databases
-        });
-      });
-    }
 
-    if(result){
-      return res.render('pages/dashboard',{result:result});
-    }
+  //success callback for auth call
+  var onGetDbStats = function(DBList, err, stats){
+    if(err) return res.render('pages/login',{error:err, data:DBList});
+    return res.render('pages/dashboard', {data:stats});
+  };
 
-  })
+  //callback for open database call
+  var onOpenDatabase = function(DbList, err, DBObject){
+    if(err){
+      res.render('pages/login',{ error:err, data:DbList });
+    }else if(DBObject){
+      Admin.getDbStats(credentials.selected_db, onGetDbStats.bind(null, DbList));
+    }
+  };
+
+  //callback for getDbListCall
+  var onGetDatabaseList = function(err, databases){
+    if(err){
+      res.render('pages/login',{ error:err})
+    }
+    //try to openDb without auth
+    Admin.openDatabase(credentials.selected_db, onOpenDatabase.bind(null, databases));
+  };
+
+  var onLoginSuccess = function(err, authResult){
+    //if auth for some reasons fail
+    if(err){
+      Admin.getDatabases(onGetDatabaseList);
+    } else if(authResult){
+      Admin.getDbStats(credentials.selected_db, onLoginSuccess);
+    }
+  };
+
+  //Now try to authenticate with credentials
+  Admin.authenticate(credentials, onLoginSuccess);
 }
 
 //routes

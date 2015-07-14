@@ -13,13 +13,12 @@
                 <h3 class="card-title black-text">MongoDB Credentials</h3>
                 <div class="card-content"  style="padding: 35px padding: 14px;background-color: aliceblue;">
                     <div class="input-field">
-                        <select name="selected_db">
+                        <select name="selected_db" class="browser-default">
                             <option value="" disabled selected>Select a Database</option>
                             {% for database in data.databases %}
                                 <option value="{{database.name}}">{{database.name}}</option>
                             {% endfor %}
                         </select>
-                        <label>Pick a Database</label>
                     </div>
                     <div class="input-field">
                         <input id="first_name" name="admin_username" placeholder="Enter your admin username" type="text" class="validate">

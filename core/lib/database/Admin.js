@@ -14,6 +14,38 @@ exports.createDatabaseWithAuth = function(object, callback){
     var db = new Mongo.Db(dbName, new Server(config.database['local'].host, config.database['local'].port))
 };
 
+exports.getBulidInfo = function(object){
+
+};
+
+exports.getDbStats = function(dbName, callback){
+    var db;
+    var onDbOpen = function(err, openDb){
+        if(err) return callback(err, null);
+        if(openDb) {
+            openDb.stats(function(err, stats){
+                if(err) return callback(err, null);
+                return callback(null, stats);
+            });
+        };
+    };
+
+    db = new Mongo.Db(dbName, new Server(config.database['local'].host, config.database['local'].port));
+    db.open(onDbOpen)
+};
+
+exports.openDatabase = function(dbName, callback){
+    var db;
+    var onDbOpen = function(err, openDb){
+        if(err) return callback(err, null);
+        if(openDb) return callback(null, openDb);
+    };
+
+    db = new Mongo.Db(dbName, new Server(config.database['local'].host, config.database['local'].port));
+    db.open(onDbOpen)
+
+}
+
 exports.authenticate = function(credentials, callback){
     var onDbOpen = function(err, openDb){
         var adminDb;
