@@ -7,24 +7,46 @@ var Server = require('mongodb').Server;
 var config = require('../../server/conf');
 var db = new Mongo.Db(config.database['local'].name, new Server(config.database['local'].host, config.database['local'].port))
 
-exports.CreateDatabaseWithAuth = function(object, callback){
+exports.createDatabaseWithAuth = function(object, callback){
     var dbName = options.dbName;
     var username = options.username;
     var password = options.password;
     var db = new Mongo.Db(dbName, new Server(config.database['local'].host, config.database['local'].port))
 };
 
-exports.getDatabases = function (callback){
-    db.open(function(err, openDb){
+exports.authenticate = function(credentials, callback){
+    var onDbOpen = function(err, openDb){
+        var adminDb;
         if(err){
             return callback(err, null);
         }
-        var adminDB = openDb.admin();
+        adminDb = openDb.admin();
+        adminDb.authenticate(
+            credentials.admin_username,
+            credentials.admin_password,
+            function(err, result){
+                if(err) return callback(err, null);
+                if(result && !err) return callback(null, result);
+            });
+    };
+    db.open(onDbOpen);
+    //db.close();
+};
+
+exports.getDatabases = function (callback){
+    var onDBOpen = function(err, openDb){
+        var adminDB;
+        if(err){
+            return callback(err, null);
+        }
+        adminDB = openDb.admin();
         adminDB.listDatabases(function(err, databases){
             if(err){
                 return callback(err, null);
             }
             return callback(databases);
         });
-    })
+    };
+    db.open(onDBOpen);
+    //db.close();
 };

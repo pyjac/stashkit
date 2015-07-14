@@ -65,18 +65,23 @@ function getDatabases(req, res, next){
   Admin.getDatabases(function(databases){
     res.json(databases);
   });
+}
 
+function loginPost(req, res, next){
+  var credentials = req.body;
+  Admin.authenticate(credentials, function(err, result){
+    console.log(err, result);
+    res.render('pages/login',{err:err});
+  })
 }
 
 //routes
 router.route('/').get(checkForFirstUser, consoleIndex);
-router.route('/start')
-    .get(setupIndex)
-    .post(createSetup);
+router.route('/start').get(setupIndex).post(createSetup);
 router.route('/admin/database').get(getDatabases);
 router.route('/uploaddemo').get(uploadForm);
 router.route('/stash').post(skUploader);
-router.route('/login').get(loginIndex);
+router.route('/login').get(loginIndex).post(loginPost);
 router.route('/user/:id').get();
 router.route('/bucket/:id').get();
 router.route('/system/').get(getSysInfo);

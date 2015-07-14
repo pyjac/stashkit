@@ -8,31 +8,32 @@
 <div class="row">
     <div id="center-box-content" class="row s12 abs-center">
         <div class="col" style="  width: 414px;">
-            <div class="card">
+            <form name="login_form" enctype="application/x-www-form-urlencoded" method="post" action="/login">
+                <div class="card">
                 <h3 class="card-title black-text">MongoDB Credentials</h3>
-                <div class="card-content"  style="padding: 35px padding: 14px;background-color: aliceblue; height: 600px;
-">
+                <div class="card-content"  style="padding: 35px padding: 14px;background-color: aliceblue;">
                     <div class="input-field">
-                        <select>
+                        <select name="selected_db">
                             <option value="" disabled selected>Select a Database</option>
                             {% for database in databases %}
-                                <option value="{{loop.index}}">{{database.name}}</option>
+                                <option value="{{database.name}}">{{database.name}}</option>
                             {% endfor %}
                         </select>
                         <label>Pick a Database</label>
                     </div>
                     <div class="input-field">
-                        <input id="first_name" placeholder="Enter your admin username" type="text" class="validate">
+                        <input id="first_name" name="admin_username" placeholder="Enter your admin username" type="text" class="validate">
                         <label for="first_name">A MongoDB Username</label>
                     </div>
                     <div class="input-field">
-                        <input id="last_name" placeholder="Enter your admin password" type="password" class="validate">
+                        <input id="last_name" name="admin_password" placeholder="Enter your admin password" type="password" class="validate">
                         <label for="last_name">Password</label>
                     </div>
                     <button class="btn waves-effect waves-light" type="submit" name="action">Login</button>
                     <p id="powered-by">Powered by RackTen Digital</p>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 </div>
