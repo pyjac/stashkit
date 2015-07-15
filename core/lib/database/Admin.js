@@ -12,11 +12,17 @@ exports.createDatabaseWithAuth = function(object, callback){
     var username = options.username;
     var password = options.password;
     var db = new Mongo.Db(dbName, new Server(config.database['local'].host, config.database['local'].port))
-};
-
-exports.getBulidInfo = function(object){
 
 };
+
+exports.getBulidInfo = function(object){};
+
+
+/**
+ *
+ * exports a function to get Database "Statis Sticks"
+ *
+ * */
 
 exports.getDbStats = function(dbName, callback){
     var db;
@@ -25,8 +31,10 @@ exports.getDbStats = function(dbName, callback){
         if(openDb) {
             openDb.stats(function(err, stats){
                 if(err) return callback(err, null);
+                openDb.close();
                 return callback(null, stats);
             });
+
         };
     };
 
@@ -34,17 +42,34 @@ exports.getDbStats = function(dbName, callback){
     db.open(onDbOpen)
 };
 
+
+/**
+ *
+ * exports a function the open the database (for databases without auth protection)
+ *
+ * */
+
 exports.openDatabase = function(dbName, callback){
     var db;
     var onDbOpen = function(err, openDb){
         if(err) return callback(err, null);
-        if(openDb) return callback(null, openDb);
+        if(openDb) {
+            openDb.close();
+            return callback(null, openDb)
+        }
     };
 
     db = new Mongo.Db(dbName, new Server(config.database['local'].host, config.database['local'].port));
     db.open(onDbOpen)
 
 }
+
+
+/**
+ *
+ * exports a function to authenticate users with mongodb
+ *
+ * */
 
 exports.authenticate = function(credentials, callback){
     var onDbOpen = function(err, openDb){
@@ -58,13 +83,21 @@ exports.authenticate = function(credentials, callback){
             credentials.admin_password,
             function(err, result){
                 if(err) return callback(err, null);
-                if(result && !err) return callback(null, result);
+                if(result && !err) {
+                    openDb.close();
+                    return callback(null, result)
+                }
             });
     };
     db.open(onDbOpen);
     //db.close();
 };
 
+/**
+ *
+ * Exports a function that gets a list of avaiable databases
+ *
+ * */
 exports.getDatabases = function (callback){
     var onDBOpen = function(err, openDb){
         var adminDB;
@@ -76,9 +109,9 @@ exports.getDatabases = function (callback){
             if(err){
                 return callback(err, null);
             }
+            openDb.close();
             return callback(null, databases);
         });
     };
     db.open(onDBOpen);
-    //db.close();
 };
