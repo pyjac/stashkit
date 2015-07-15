@@ -19,6 +19,12 @@ function loginIndex(req, res, next) {
 
 };
 
+/**
+ *
+ * TODO: You should fetch Database System Information, BuildInfo and
+ * TODO: Selected Database stats then send it to the browser
+ *
+ * */
 function dashboardIndex(req, res, next) {
   res.render('pages/dashboard');
 };
@@ -85,7 +91,7 @@ function loginPost(req, res, next){
   //success callback for auth call
   var onGetDbStats = function(DBList, err, stats){
     if(err) return res.render('pages/login',{error:err, data:DBList});
-    return res.render('pages/dashboard', {data:stats});
+    return res.redirect(301, '/admin-console/dashboard');
   };
 
   //callback for open database call
@@ -106,6 +112,7 @@ function loginPost(req, res, next){
     Admin.openDatabase(credentials.selected_db, onOpenDatabase.bind(null, databases));
   };
 
+  //callback for auth call
   var onLoginSuccess = function(err, authResult){
     //if auth for some reasons fail
     if(err){
@@ -129,7 +136,7 @@ router.route('/login').get(loginIndex).post(loginPost);
 router.route('/user/:id').get();
 router.route('/bucket/:id').get();
 router.route('/system/').get(getSysInfo);
-router.route('/dashboard/').get(dashboardIndex);
+router.route('/admin-console/dashboard').get(dashboardIndex);
 
 
 
