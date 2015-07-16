@@ -15,7 +15,20 @@ exports.createDatabaseWithAuth = function(object, callback){
 
 };
 
-exports.getBulidInfo = function(object){};
+exports.getBulidInfo = function(object){
+
+};
+
+
+/**
+ *
+ * Gets a list of All buckets for this User account
+ *
+ * */
+
+exports.getBucketList = function(){
+
+};
 
 
 /**

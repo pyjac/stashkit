@@ -21,12 +21,3 @@ dbcon.on('error', function (error) {
 mongoose.set('debug', true);
 exports.database = mongoose;
 
-
-/**
- *
- * for getting admin interface
- *
- * */
-
-var db = new DB(config.database['local'].name, new Server(config.database['local'].host, config.database['local'].port));
-
