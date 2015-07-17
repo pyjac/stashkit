@@ -20,7 +20,7 @@ describe('Admin Module', function(){
     });
 
     it('should throw an error message when connecting with invalid db connection', function(done){
-        db = new Mongo.Db("NoneExisitingDB", new Server("wronghost", 808080));
+        db = new Mongo.Db("NoneExisitingDB", new Server("wronghost", 27810));
         db.open(function(err, result){
             assert.isObject(err);
             assert.isUndefined(result);
