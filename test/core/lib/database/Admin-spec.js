@@ -30,7 +30,6 @@ describe('Admin Module', function(){
 
     it('should be able to connect to database', function(done){
         db.open(function(err, result){
-            console.log(err);
             assert.isNull(err);
             assert.isObject(result);
             return done();
