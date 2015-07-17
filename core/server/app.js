@@ -9,6 +9,7 @@ var nunjucks = require('nunjucks');
 var consolidate = require('consolidate');
 var database = require('../lib/database.js');
 var stashkit = require('../lib/middleware/stashkit');
+var session = require('express-session');
 
 var router = require('./routes/index');
 
@@ -41,8 +42,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
+app.use(session({
+    secret:"kitty-catty",
+    resave:false,
+    saveUninitialized:false
+}));
 app.use(express.static(path.join(__dirname, '../../content/public')));
 app.use(Passport.initialize());
+app.use(Passport.session());
 app.use(stashkit.init({
     client_id:'client_id001',
     client_secret:'client_secret001'
