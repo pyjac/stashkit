@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bigmeech/stashkit.svg?branch=larry%2Fdev)](https://travis-ci.org/bigmeech/stashkit)
+
 # Stashkit
 Exposes MongoDB GridFS via a RESTful Interface backed by ImageMagick and FFMPEG
 
