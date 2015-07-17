@@ -91,7 +91,7 @@ function loginPost(req, res, next){
   //success callback for auth call
   var onGetDbStats = function(DBList, err, stats){
     if(err) return res.render('pages/login',{error:err, data:DBList});
-    return res.redirect(301, '/admin-console/dashboard');
+    return res.redirect(301, '/admin-console/main');
   };
 
   //callback for open database call
@@ -136,7 +136,7 @@ router.route('/login').get(loginIndex).post(loginPost);
 router.route('/user/:id').get();
 router.route('/bucket/:id').get();
 router.route('/system/').get(getSysInfo);
-router.route('/admin-console/dashboard').get(dashboardIndex);
+router.route('/admin-console/main').get(dashboardIndex);
 
 
 

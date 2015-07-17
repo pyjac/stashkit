@@ -5,9 +5,9 @@
 var Mongo = require('mongodb');
 var Server = require('mongodb').Server;
 var config = require('../../server/conf');
-var db = new Mongo.Db(config.database['local'].name, new Server(config.database['local'].host, config.database['local'].port))
+var db = new Mongo.Db(config.database['local'].name, new Server(config.database['local'].host, config.database['local'].port));
 
-exports.createDatabaseWithAuth = function(object, callback){
+exports.createDatabaseWithAuth = function (object, callback) {
     var dbName = options.dbName;
     var username = options.username;
     var password = options.password;
@@ -15,7 +15,26 @@ exports.createDatabaseWithAuth = function(object, callback){
 
 };
 
-exports.getBulidInfo = function(object){
+
+exports.validateLogin = function (admin_username, admin_password, done) {
+    var onDbOpen = function (err, openDb) {
+        var adminDb = openDb.admin();
+        if (err) {
+            return callback(err, null);
+        }
+        adminDb.authenticate(admin_username, admin_password,
+            function (err, result) {
+                if (err) return done(err, null);
+                if (result && !err) {
+                    openDb.close();
+                    return done(null, result)
+                }
+            });
+    };
+    db.open(onDbOpen);
+};
+
+exports.getBulidInfo = function (object) {
 
 };
 
@@ -26,7 +45,7 @@ exports.getBulidInfo = function(object){
  *
  * */
 
-exports.getBucketList = function(){
+exports.getBucketList = function () {
 
 };
 
@@ -37,13 +56,13 @@ exports.getBucketList = function(){
  *
  * */
 
-exports.getDbStats = function(dbName, callback){
+exports.getDbStats = function (dbName, callback) {
     var db;
-    var onDbOpen = function(err, openDb){
-        if(err) return callback(err, null);
-        if(openDb) {
-            openDb.stats(function(err, stats){
-                if(err) return callback(err, null);
+    var onDbOpen = function (err, openDb) {
+        if (err) return callback(err, null);
+        if (openDb) {
+            openDb.stats(function (err, stats) {
+                if (err) return callback(err, null);
                 openDb.close();
                 return callback(null, stats);
             });
@@ -62,11 +81,11 @@ exports.getDbStats = function(dbName, callback){
  *
  * */
 
-exports.openDatabase = function(dbName, callback){
+exports.openDatabase = function (dbName, callback) {
     var db;
-    var onDbOpen = function(err, openDb){
-        if(err) return callback(err, null);
-        if(openDb) {
+    var onDbOpen = function (err, openDb) {
+        if (err) return callback(err, null);
+        if (openDb) {
             openDb.close();
             return callback(null, openDb)
         }
@@ -84,25 +103,8 @@ exports.openDatabase = function(dbName, callback){
  *
  * */
 
-exports.authenticate = function(credentials, callback){
-    var onDbOpen = function(err, openDb){
-        var adminDb;
-        if(err){
-            return callback(err, null);
-        }
-        adminDb = openDb.admin();
-        adminDb.authenticate(
-            credentials.admin_username,
-            credentials.admin_password,
-            function(err, result){
-                if(err) return callback(err, null);
-                if(result && !err) {
-                    openDb.close();
-                    return callback(null, result)
-                }
-            });
-    };
-    db.open(onDbOpen);
+var authenticate = function (credentials, callback) {
+
     //db.close();
 };
 
@@ -111,15 +113,15 @@ exports.authenticate = function(credentials, callback){
  * Exports a function that gets a list of avaiable databases
  *
  * */
-exports.getDatabases = function (callback){
-    var onDBOpen = function(err, openDb){
+exports.getDatabases = function (callback) {
+    var onDBOpen = function (err, openDb) {
         var adminDB;
-        if(err){
+        if (err) {
             return callback(err, null);
         }
         adminDB = openDb.admin();
-        adminDB.listDatabases(function(err, databases){
-            if(err){
+        adminDB.listDatabases(function (err, databases) {
+            if (err) {
                 return callback(err, null);
             }
             openDb.close();
