@@ -5,6 +5,7 @@ var os = require('os');
 var skUploader = require('../../lib/middleware/stashkit').Uploader;
 var Admin = require('../../lib/database/Admin');
 var GridInterface = require('../../lib/database/GridInterface');
+var passport = require('passport');
 
 //index route
 function consoleIndex(req, res, next) {
@@ -127,16 +128,50 @@ function loginPost(req, res, next){
 }
 
 //routes
-router.route('/').get(checkForFirstUser, consoleIndex);
-router.route('/start').get(setupIndex).post(createSetup);
-router.route('/admin/database').get(getDatabases);
-router.route('/uploaddemo').get(uploadForm);
-router.route('/stash').post(skUploader);
-router.route('/login').get(loginIndex).post(loginPost);
-router.route('/user/:id').get();
-router.route('/bucket/:id').get();
-router.route('/system/').get(getSysInfo);
-router.route('/admin-console/main').get(dashboardIndex);
+router
+    .route('/')
+    .get(checkForFirstUser, consoleIndex);
+
+router
+    .route('/start')
+    .get(setupIndex)
+    .post(createSetup);
+
+router
+    .route('/admin/database')
+    .get(getDatabases);
+
+router
+    .route('/uploaddemo')
+    .get(uploadForm);
+
+router
+    .route('/stash')
+    .post(skUploader);
+
+router.route('/login')
+    .get(loginIndex)
+    .post(passport.authenticate('local', {
+      failureRedirect: '/login',
+      usernameField:'admin_username',
+      passwordField:'admin_password'
+    }));
+
+router
+    .route('/user/:id')
+    .get();
+
+router
+    .route('/bucket/:id')
+    .get();
+
+router
+    .route('/system/')
+    .get(getSysInfo);
+
+router
+    .route('/admin-console/main')
+    .get(dashboardIndex);
 
 
 

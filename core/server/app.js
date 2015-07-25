@@ -12,9 +12,8 @@ var stashkit = require('../lib/middleware/stashkit');
 var session = require('express-session');
 
 var router = require('./routes/index');
-
 var ACL = require('../lib/middleware/acl');
-
+var PassportConfig = require('../../core/lib/PassportConfig');
 var app = express();
 
 // view engine setup
@@ -54,6 +53,11 @@ app.use(stashkit.init({
     client_id:'client_id001',
     client_secret:'client_secret001'
 }));
+
+//route auths
+PassportConfig(app);
+
+//router middleware
 app.use(router(app));
 
 // catch 404 and forward to error handler
