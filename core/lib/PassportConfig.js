@@ -6,7 +6,20 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var Admin = require('../../core/lib/database/Admin');
-module.exports = function(app){
-    passport.use(new LocalStrategy(Admin.validateLogin))
 
+
+module.exports = function(app){
+
+    passport.serializeUser(function(user, done) {
+        done();
+    });
+
+    passport.deserializeUser(function(id, done) {
+        done();
+    });
+
+    passport.use(new LocalStrategy(function(username, password, done){
+        console.log(username, password, done);
+        done();
+    }))
 };
